@@ -15,6 +15,8 @@ private:
 	int cursor_x;            //カーソルx座標
 	int cursor_y;            //カーソルy座標
 
+	bool error_message;		//エラーメッセージを描画するか
+
 public:
 	RankingInputScene();
 	virtual ~RankingInputScene();

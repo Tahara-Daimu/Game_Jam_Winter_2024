@@ -96,6 +96,10 @@ void RankingInputScene::Draw()const
     DrawString(40, 405, "決定", GetColor(255, 255, 255));
     DrawString(40 + font_size * 2, 405, "消す", GetColor(255, 255, 255));
 
+    if (error_message == TRUE) {
+        DrawString(230, 485, "名前を入力してください", GetColor(255, 0, 0));
+    }
+
     //選択文字をフォーカスする
     if (cursor_y < 4)
     {
@@ -233,8 +237,14 @@ bool RankingInputScene::InputName()
         {
             if (cursor_x == 0)
             {
-                name[name_num] = '\0';
-                return true;
+                if (name_num < 1) {
+                    error_message = TRUE;
+                    return false;
+                }
+                else {
+                    name[name_num] = '\0';
+                    return true;
+                }
             }
             else
             {

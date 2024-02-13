@@ -49,10 +49,11 @@ void RankingDispScene::Draw()const
 	//背景画像の描画
 	DrawGraph(0, 0, background_image, FALSE);
 
+	SetFontSize(30);
 	//取得したランキングデータを描画する
 	for (int i = 0; i < 5; i++)
 	{
-		DrawFormatString(50, 170 + i * 25, 0xffffff, "%2d %-15s %6d",
+		DrawFormatString(110, 190 + i * 50, 0xffffff, "%2d %-15s %6d",
 			ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));
 	}
 }

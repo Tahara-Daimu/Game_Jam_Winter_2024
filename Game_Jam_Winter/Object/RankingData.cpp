@@ -4,7 +4,7 @@
 
 RankingData::RankingData()
 {
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		score[i] = NULL;
 		rank[i] = NULL;
@@ -40,7 +40,7 @@ void RankingData::Initialize()
 	//対象ファイルから読み込む
 	for (int i = 0; i < 5; i++)
 	{
-		fscanf_s(fp, "%6d,%2d,%[^,],\n", &score[i], &rank[i], name[i], 15);
+		fscanf_s(fp, "%6d,%2d,%15s \n", &score[i], &rank[i], name[i], 15);
 	}
 
 	//ファイルクローズ
@@ -143,7 +143,7 @@ void RankingData::SortData()
 	//対象ファイルに書き込み
 	for (int i = 0; i < 5; i++)
 	{
-		fprintf(fp, "%d,%d,%s,\n", score[i], rank[i], name[i]);
+		fprintf(fp, "%d,%d,%s \n", score[i], rank[i], name[i]);
 	}
 
 	//ファイルクローズ
