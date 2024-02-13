@@ -46,6 +46,7 @@ eSceneType RankingDispScene::Update()
 //描画処理
 void RankingDispScene::Draw()const
 {
+	//背景の描画
 	DrawBox(0, 0, 640, 600, 0x00001e, TRUE);
 
 	//背景画像の描画
