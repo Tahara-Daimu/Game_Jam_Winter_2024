@@ -46,6 +46,8 @@ eSceneType RankingDispScene::Update()
 //描画処理
 void RankingDispScene::Draw()const
 {
+	DrawBox(0, 0, 640, 600, 0x00001e, TRUE);
+
 	//背景画像の描画
 	DrawGraph(0, 0, background_image, FALSE);
 
@@ -53,7 +55,7 @@ void RankingDispScene::Draw()const
 	//取得したランキングデータを描画する
 	for (int i = 0; i < 5; i++)
 	{
-		DrawFormatString(110, 190 + i * 50, 0xffffff, "%2d %-15s %6d",
+		DrawFormatString(110, 190 + i * 70, 0xffffff, "%2d %-15s %6d",
 			ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));
 	}
 }
