@@ -35,6 +35,8 @@ void GameMainScene::Initialize()
     int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120,
         enemy_image);
 
+    bomber_image = LoadGraph("Resource/images/Bomber.png");
+
     //エラーチェック
     if (back_ground == -1)
     {
@@ -69,6 +71,19 @@ eSceneType GameMainScene::Update()
 {
     //プレイヤーの更新
     player->Update();
+
+    //爆発画像の描画時間のカウント
+    if (draw_bomber == TRUE) {
+        bombtime++;
+    }
+
+    else {
+        bombtime = 0;
+    }
+    //爆発状態をオフにする
+    if(bombtime > 60) {
+        draw_bomber = FALSE;
+    }
 
     //移動距離の更新
     mileage += (int)player->GetSpeed() + 5;
@@ -108,6 +123,10 @@ eSceneType GameMainScene::Update()
             if (IsHitCheck(player, enemy[i]))
             {
                 enemy[i]->Finalize();
+                score += 100;
+                bomber_x = player->GetLocation().x;
+                bomber_y = player->GetLocation().y;
+                draw_bomber = TRUE;
                 delete enemy[i];
                 enemy[i] = nullptr;
             }
@@ -146,15 +165,21 @@ void GameMainScene::Draw()const
         DrawRotaGraph(523 + (i * 50), 120, 0.3, 0, enemy_image[i], TRUE, FALSE);
         DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d", enemy_count[i]);
     }
-    DrawFormatString(510, 200, GetColor(0, 0, 0), "走行距離");
-    DrawFormatString(555, 220, GetColor(255, 255, 255), "%08d", mileage / 10);
+    /*DrawFormatString(510, 200, GetColor(0, 0, 0), "走行距離");
+    DrawFormatString(555, 220, GetColor(255, 255, 255), "%08d", mileage / 10);*/
     DrawFormatString(510, 240, GetColor(0, 0, 0), "スピード");
     DrawFormatString(555, 260, GetColor(255, 255, 255), "%08.1f", player->GetSpeed());
-
     //バリア枚数の描画
     for (int i = 0; i < player->GetBarrierCount(); i++)
     {
         DrawRotaGraph(520 + i * 25, 340, 0.2f, 0, barrier_image, TRUE, FALSE);
+    }
+
+    DrawFormatString(510, 420, GetColor(0, 0, 0), "score");
+    DrawFormatString(560, 440, GetColor(255, 255, 255), "%08d", score);
+
+    if (draw_bomber == TRUE) {
+        DrawGraph(player->GetLocation().x - 100, player->GetLocation().y - 100, bomber_image, TRUE);
     }
 }
 
@@ -162,12 +187,10 @@ void GameMainScene::Draw()const
 //終了時処理
 void GameMainScene::Finalize()
 {
-    //スコアを計算する
-    int score = (mileage / 10 * 10);
-    for (int i = 0; i < 3; i++)
+    /*for (int i = 0; i < 3; i++)
     {
         score += (i + 1) * 50 * enemy_count[i];
-    }
+    }*/
 
     //リザルトデータの書き込み
     FILE* fp = nullptr;
