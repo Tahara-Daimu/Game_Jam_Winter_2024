@@ -56,8 +56,23 @@ void RankingDispScene::Draw()const
 	//取得したランキングデータを描画する
 	for (int i = 0; i < 5; i++)
 	{
-		DrawFormatString(110, 190 + i * 70, 0xffffff, "%2d %-15s %6d",
-			ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));
+		if (i == 0) {
+			DrawFormatString(110, 190 + i * 70, 0xe6b422, "%2d %-15s %6d",
+				ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));
+		}
+		else if(i == 1) {
+			DrawFormatString(110, 190 + i * 70, 0x808080, "%2d %-15s %6d",
+				ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));
+		}
+		else if (i == 2) {
+			DrawFormatString(110, 190 + i * 70, 0x8c4841, "%2d %-15s %6d",
+				ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));
+		}
+		else{
+			DrawFormatString(110, 190 + i * 70, 0xffffff, "%2d %-15s %6d",
+				ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));
+		}
+		
 	}
 }
 

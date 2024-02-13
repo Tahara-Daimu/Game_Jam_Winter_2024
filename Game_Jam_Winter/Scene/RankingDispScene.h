@@ -9,6 +9,7 @@ private:
 private:
 	int background_image; //背景画像
 	RankingData* ranking; //ランキング情報
+	unsigned int color;		//色指定
 
 public:
 	RankingDispScene();
