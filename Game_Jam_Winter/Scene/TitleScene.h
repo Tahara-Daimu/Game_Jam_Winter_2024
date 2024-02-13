@@ -7,10 +7,14 @@ class TitleScene :public SceneBase
 private:
 
 private:
+
 	int background_image;
 	int menu_image;
 	int cursor_image;
 	int menu_cursor;
+	int Title_Bgm;
+	int cursor_down_se;
+	int cursor_up_se;
 
 public:
 	TitleScene();
