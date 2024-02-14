@@ -13,6 +13,7 @@ private:
 	int main_song_count = 0;
 	int Test_mileage = 0;
 
+	int score;			 //スコア
 	int high_score;      //ハイスコア
 	int back_ground;     //背景画像
 	int bomber_image;	 //爆発画像
