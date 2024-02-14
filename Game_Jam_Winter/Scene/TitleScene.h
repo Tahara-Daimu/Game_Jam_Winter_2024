@@ -9,7 +9,13 @@ private:
 private:
 
 	int background_image;
-	int menu_image;
+	/*int menu_image;*/
+	int kuruma_image;
+	/*int menu_image;*/
+	int state_image;
+	int help_image;
+	int ranking_image;
+	int end_image;
 	int cursor_image;
 	int menu_cursor;
 	int Title_Bgm;
