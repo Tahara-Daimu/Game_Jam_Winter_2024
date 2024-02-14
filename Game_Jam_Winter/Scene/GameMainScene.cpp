@@ -163,6 +163,8 @@ eSceneType GameMainScene::Update()
             //当たり判定の確認
             if (IsHitCheck(player, enemy[i]))
             {
+                player->SetActive(false);
+                player->DecreaseHp(-50.0f);
                 enemy[i]->Finalize();
                 score += 100;
                 bomber_x = player->GetLocation().x;
@@ -170,37 +172,6 @@ eSceneType GameMainScene::Update()
                 draw_bomber = TRUE;
                 delete enemy[i];
                 enemy[i] = nullptr;
-
-                //コンボ処理
-                player->combo1 += 1;
-                if (player->combo1 > 9)
-                {
-                    if (!player->Digit2)
-                    {
-                        player->nowComboDigit = 2;
-                        player->Digit2 = TRUE;
-                    }
-                    player->combo10 += 1;
-                    player->combo1 = 0;
-
-                    if (player->combo10 > 9)
-                    {
-                        if (!player->Digit3)
-                        {
-                            player->nowComboDigit = 3;
-                            player->Digit3 = TRUE;
-                        }
-                        player->combo100 += 1;
-                        player->combo10 = 0;
-
-                        if (player->combo100 > 9)
-                        {
-                            player->combo100 = 9;
-                            player->combo10 = 9;
-                            player->combo1 = 9;
-                        }
-                    }
-                }
             }
         }
     }
@@ -263,12 +234,22 @@ void GameMainScene::Draw()const
     DrawFormatString(510, 240, GetColor(0, 0, 0), "スピード");
     DrawFormatString(555, 260, GetColor(255, 255, 255), "%08.1f", player->GetSpeed());
 
-    DrawFormatString(510, 420, GetColor(0, 0, 0), "score");
-    DrawFormatString(560, 440, GetColor(255, 255, 255), "%08d", score);
+    //燃料ゲージの描画
+    float fx = 510.0f;
+    float fy = 390.0f;
+    DrawFormatString(fx, fy, GetColor(0, 0, 0), "FUEL METER");
+    DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy + 40.0f,
+        GetColor(0, 102, 204), TRUE);
+    DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
 
-    if (draw_bomber == TRUE) {
-        DrawGraph(player->GetLocation().x - 100, player->GetLocation().y - 100, bomber_image, TRUE);
-    }
+    //体力ゲージの描画
+    fx = 510.0f;
+    fy = 430.0f;
+    DrawFormatString(fx, fy, GetColor(0, 0, 0), "PLAYER HP");
+    DrawBoxAA(fx, fy + 20.0f, fx + (player->GetHp() * 100 / 1000), fy + 40.0f,
+        GetColor(255, 0, 0), TRUE);
+    DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0),
+        FALSE);
 }
 
 
